@@ -1,11 +1,15 @@
 """Test-only failure baselines with no effect on normal app startup."""
 
 import os
+from pathlib import Path
 from uuid import uuid4
 
 
 def active_fault():
-    return os.environ.get("QA_DEMO_FAULT", "")
+    override = os.environ.get("QA_DEMO_FAULT")
+    if override is not None:
+        return override
+    return Path(__file__).with_name("fault_profile.txt").read_text(encoding="utf-8").strip()
 
 
 def configure_fault(monkeypatch, node):

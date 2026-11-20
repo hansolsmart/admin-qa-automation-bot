@@ -9,7 +9,7 @@ def test_special_characters_round_trip(page, app_server, request):
     base, path = app_server
     sign_in(page, base)
     name = '한글 O\'Reilly & <샘플> "원문"'
-    description = "A < B & C > D"
+    description = "A < B & C > D | SELECT 항목"
     fill_item(page, name, description)
     with page.expect_response(lambda response: response.url.endswith("/api/items") and response.request.method == "POST") as received:
         page.get_by_role("button", name="항목 등록").click()

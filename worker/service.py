@@ -86,7 +86,7 @@ def run_claim(engine, report_root, claim):
 
     log_event("run_claimed", claim, status="RUNNING", scenarios=claim.scenarios)
     env = {**os.environ, "QA_OUTPUT_DIR": str(directory), "QA_RUN_ID": str(claim.id), "PYTHONIOENCODING": "utf-8", "PYTEST_DISABLE_PLUGIN_AUTOLOAD": "1"}
-    env.pop("QA_DEMO_FAULT", None)
+    env["QA_DEMO_FAULT"] = "fixed"
     env.pop("PYTEST_ADDOPTS", None)
     command = [sys.executable, "-m", "pytest", "-p", "no:cacheprovider", "-q", "-s", "--tb=short"]
     command.extend(SCENARIOS[scenario][1] for scenario in claim.scenarios)
