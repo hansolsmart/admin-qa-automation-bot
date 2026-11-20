@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}로그인{% endblock %}
+{% block content %}
+<section class="panel login-card">
+  <div class="brand"><span class="brand-icon" aria-hidden="true">QA</span> Admin QA</div>
+  <h1>관리자 로그인</h1>
+  <form id="login-form" aria-describedby="status">
+    <label for="username">사용자명</label>
+    <input id="username" name="username" autocomplete="username" required maxlength="64">
+    <label for="password">비밀번호</label>
+    <input id="password" name="password" type="password" autocomplete="current-password" required maxlength="256">
+    <button type="submit">로그인</button>
+  </form>
+  <p id="status" role="status" aria-live="polite"></p>
+</section>
+{% endblock %}

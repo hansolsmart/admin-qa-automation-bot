@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock %} · Admin QA</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='/app.css') }}">
+  <script src="{{ url_for('static', path='/app.js') }}" defer></script>
+</head>
+<body data-page="{{ page|default('login') }}">
+  {% if page %}
+  <header class="shell-bar">
+    <a class="brand" href="/items"><span class="brand-icon" aria-hidden="true">QA</span> Admin QA</a>
+    <nav aria-label="주 메뉴">
+      <a href="/items" {% if page == 'items' %}aria-current="page"{% endif %}>데이터 관리</a>
+      <a href="/qa" {% if page == 'qa' %}aria-current="page"{% endif %}>QA 대시보드</a>
+    </nav>
+    <div class="account"><span>{{ username }}</span><button type="button" id="logout" class="quiet">로그아웃</button></div>
+  </header>
+  {% endif %}
+  <main>{% block content %}{% endblock %}</main>
+</body>
+</html>

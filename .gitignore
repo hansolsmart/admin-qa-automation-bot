@@ -1,0 +1,8 @@
+/.venv/
+/.env
+/data/
+/reports/
+/.pytest_cache/
+/.ruff_cache/
+__pycache__/
+*.py[cod]

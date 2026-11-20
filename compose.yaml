@@ -1,0 +1,32 @@
+services:
+  app:
+    image: admin-qa-bot:local
+    build: .
+    command: ["python", "-m", "app.bootstrap", "serve", "--host", "0.0.0.0"]
+    ports:
+      - "127.0.0.1:${ADMIN_QA_PORT:-8000}:8000"
+    environment: &qa_environment
+      ADMIN_QA_DB_PATH: /var/lib/admin-qa/admin.sqlite3
+      ADMIN_QA_REPORT_DIR: /var/log/admin-qa
+      ADMIN_QA_SECURE_COOKIE: "0"
+    volumes: &qa_volumes
+      - db_data:/var/lib/admin-qa
+      - qa_reports:/var/log/admin-qa
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=2).close()"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+  qa-worker:
+    image: admin-qa-bot:local
+    command: ["python", "-m", "worker"]
+    depends_on:
+      app:
+        condition: service_healthy
+    environment: *qa_environment
+    volumes: *qa_volumes
+    init: true
+    shm_size: 512m
+volumes:
+  db_data:
+  qa_reports:
