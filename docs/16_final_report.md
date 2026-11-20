@@ -1,4 +1,4 @@
-# STEP 16 로컬 MVP 최종 결과
+# STEP 16 MVP 최종 결과
 
 2026-11-20 Windows에서 관리자 로그인·로그아웃, 항목 등록·조회·수정, 브라우저 QA 요청과 Worker 실행, 결과 집계·이력·증거 조회를 검증했다. 테스트에는 Python 3.14.6, SQLite 3.50.4, Playwright 1.58.0, Chrome 157.0.8103.79를 사용했다.
 
@@ -26,6 +26,12 @@
 
 성능 검사 6개를 통과했다. 이 부하 조건에서 목표를 넘긴 항목은 없었다. 장기 부하 및 최적화 전후 비교는 미측정이다. 원시 측정값은 로컬 `reports/step16/performance/benchmark.json`에 있다.
 
+## GitHub Actions 및 공개 포트폴리오
+
+2026-11-20 GitHub Actions의 Ubuntu 24.04 환경에서 코드 검사, DB 마이그레이션, Python 테스트, Playwright 브라우저 테스트를 통과했다. Docker 이미지 빌드와 `docker compose up -d --wait`가 성공해 앱과 QA Worker의 정상 기동을 확인했다. [CI 실행 결과 및 로그](https://github.com/hansolsmart/admin-qa-automation-bot/actions/runs/44662514077)
+
+Vercel에 장애 3종의 실패·복구 결과, 실행 로그와 스크린샷을 담은 소개 페이지를 배포했다. 페이지와 증거 파일은 로그인 없이 접근할 수 있다. [공개 포트폴리오](https://admin-qa-portfolio.vercel.app/)
+
 ## 완료 상태
 
 | 범위 | 상태 |
@@ -34,8 +40,9 @@
 | API·인증·화면·Worker·QA 데이터 수집·대시보드 | 로컬 검증 완료 |
 | 정상 3종, 장애 3종 재현·복구, 전체 회귀 | 로컬 검증 완료 |
 | 네이티브 로컬 앱·백업·복원·성능 | 로컬 검증 완료 |
-| Docker 이미지 빌드·Compose 구동 | 구성 준비. 검증 컴퓨터에서 Docker 명령을 찾을 수 없어 미실행 |
-| GitHub Actions | 워크플로 준비. GitHub 원격 저장소가 미설정되어 미실행 |
-| 외부 배포 | 사용자 요청에 따라 범위 제외 |
+| Docker 이미지 빌드·Compose 구동 | GitHub Actions 환경에서 앱·Worker 기동 검증 완료 |
+| GitHub Actions | 코드 검사·마이그레이션·Python·브라우저 테스트 통과 |
+| 포트폴리오 공개 | Vercel 배포 및 로그인 없는 접근 확인 |
+| 관리자 앱의 외부 실행 데모 | 범위 제외 |
 
 운영 절차는 [Runbook](16_runbook.md), 단계별 상세는 [검증 기록](verification_log.md)에 있다. 원시 로그·JUnit·스크린샷은 로컬 `reports/`에 보존했다. GitHub에서 볼 수 있는 증거는 [README의 실행 #3](../README.md#qa-대시보드-실행-3)에 있다.
