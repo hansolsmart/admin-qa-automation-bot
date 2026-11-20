@@ -30,6 +30,10 @@ Worker 로그에는 판정 근거와 동일 키로 다른 본문을 제출했을
 
 ![장애 시나리오 3개를 선택한 QA 대시보드의 실행 #3 완료 화면](docs/evidence/run-3/dashboard.jpg)
 
+## GitHub Actions 검증
+
+2026년 11월 20일 GitHub Actions에서 **Python 테스트와 Playwright 브라우저 테스트가 모두 통과**했습니다. Docker 이미지 빌드와 Docker Compose에서 앱·Worker 기동도 확인했습니다. [성공한 실행 결과 및 로그](https://github.com/hansolsmart/admin-qa-automation-bot/actions/runs/44662514077)
+
 ## Windows에서 실행
 
 프로젝트 루트에서 Python 3.14 가상 환경을 준비합니다. 아래 브라우저 설정은 설치된 Chrome을 사용합니다. Playwright 번들 Chromium을 쓰려면 가상 환경에서 `.\.venv\Scripts\python.exe -m playwright install chromium`을 실행하고 브라우저 채널 설정을 생략합니다.
@@ -75,4 +79,4 @@ docker compose up -d --wait
 docker compose exec app python -m app.bootstrap create-admin local-admin
 ```
 
-이 프로젝트의 검증 환경에서는 Docker와 원격 CI 실행이 미확인 상태입니다. Windows 네이티브 실행과 검증 결과는 최종 보고서에 있습니다.
+Docker Compose 검증 결과는 위 [GitHub Actions 검증](#github-actions-검증)에 있습니다. Windows 네이티브 실행과 검증 결과는 [최종 보고서](docs/16_final_report.md)에 있습니다.
