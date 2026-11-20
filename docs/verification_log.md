@@ -18,3 +18,8 @@
 | 14 | Windows/Python 3.14.6에서 DB·API·Worker 13개, 정상 Playwright 3개, Dashboard 및 모바일 2개 통과. Ruff와 JS 문법 검사 통과 | `reports/step14/{unit,normal,integration}/`의 로그·JUnit·화면 증거 |
 
 STEP 10 초기 정적 검사에서 Compose 변수 비교식의 이스케이프를 수정했다. STEP 11 검사의 문서 경로도 수정하고 다시 실행했다. STEP 14 테스트에서 Starlette TestClient의 AnyIO 별칭 사용에 따른 의존성 deprecation 경고 1건이 발생했다. 테스트 실패는 0건이었다.
+
+| 단계 | 실제 확인 결과 | 증거 또는 남은 조건 |
+| --- | --- | --- |
+| 15 | 케이스별 pytest로 기대 실패 3/3 및 복구 통과 3/3, Git 태그 6개에서 동일 판정, 전체 회귀 22개 통과 | [장애 보고서](15_incident_report.md), `reports/step15/` |
+| 16 | 최종 회귀 22개 통과, 대시보드에서 정상·예외 6개 함께 실행, 네이티브 CLI 기동·백업·복원 성공, 성능 기준 6개 통과 | [최종 보고서](16_final_report.md), `reports/step16/`. Docker Compose 및 GitHub Actions 미실행 |

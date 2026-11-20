@@ -13,6 +13,8 @@ def test_dashboard_runs_worker_and_displays_evidence(page, app_server):
     base, path = app_server
     sign_in(page, base)
     page.get_by_role("link", name="QA 대시보드").click()
+    for name in ("등록 응답 단절", "특수문자 입력", "중복 제출"):
+        page.get_by_role("checkbox", name=name).check()
     with page.expect_response(lambda response: response.url.endswith("/api/qa/runs") and response.request.method == "POST") as received:
         page.get_by_role("button", name="QA 실행").click()
     response = received.value
@@ -26,14 +28,18 @@ def test_dashboard_runs_worker_and_displays_evidence(page, app_server):
     assert result.returncode == 0, result.stderr
     detail = page.request.get(f"{base}/api/qa/runs/{run_id}").json()
     assert detail["status"] == "COMPLETED", detail
-    assert [row["status"] for row in detail["results"]] == ["PASS", "PASS", "PASS"], detail
+    assert [row["status"] for row in detail["results"]] == ["PASS"] * 6, detail
+    metrics = page.request.get(f"{base}/api/qa/runs").json()["metrics"]
+    assert metrics["counts"]["PASS"] == 6 and metrics["exception_pass_rate"] == 1
     assert read_items(path) == []
     page.reload()
     page.get_by_role("button", name=f"실행 #{run_id}").click()
     result_panel = page.get_by_role("region", name="실행 상세")
     expect(result_panel).to_contain_text("COMPLETED")
-    expect(result_panel.get_by_text("PASS", exact=True)).to_have_count(3)
-    expect(result_panel.get_by_role("link", name="스크린샷")).to_have_count(3)
+    expect(result_panel.get_by_text("PASS", exact=True)).to_have_count(6)
+    expect(result_panel.get_by_role("link", name="스크린샷")).to_have_count(6)
+    expect(result_panel.get_by_text("시작", exact=False)).to_be_visible()
+    expect(result_panel.get_by_text("종료", exact=False)).to_be_visible()
     assert page.request.get(base + detail["log_url"]).status == 200
     assert page.request.get(base + detail["results"][0]["screenshot_url"]).headers["content-type"] == "image/png"
     anonymous = page.context.browser.new_context()

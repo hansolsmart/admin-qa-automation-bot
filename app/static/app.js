@@ -158,6 +158,10 @@ function stateBadge(state) {
   return badge;
 }
 
+function formatTime(seconds) {
+  return new Date(seconds * 1000).toLocaleString('ko-KR');
+}
+
 function evidenceLink(path, label) {
   const link = textElement('a', label);
   link.href = path;
@@ -189,8 +193,7 @@ function setUpDashboard() {
       button.type = 'button';
       button.className = 'quiet run-row';
       button.setAttribute('aria-current', run.id === selected ? 'true' : 'false');
-      const date = new Date(run.requested_at * 1000).toLocaleString('ko-KR');
-      button.append(textElement('span', '실행 #' + run.id + ' · ' + date), stateBadge(run.status));
+      button.append(textElement('span', '실행 #' + run.id + ' · ' + formatTime(run.requested_at)), stateBadge(run.status));
       button.addEventListener('click', async () => {
         selected = run.id;
         renderList();
@@ -210,6 +213,8 @@ function setUpDashboard() {
     detailSignature = signature;
     detail.hidden = false;
     detail.replaceChildren(textElement('h3', '실행 #' + run.id), stateBadge(run.status));
+    if (run.started_at !== null) detail.append(textElement('p', '시작 ' + formatTime(run.started_at), 'secondary'));
+    if (run.finished_at !== null) detail.append(textElement('p', '종료 ' + formatTime(run.finished_at), 'secondary'));
     detail.append(textElement('p', run.scenarios.join(' · '), 'secondary'));
     if (run.error_code) detail.append(textElement('p', run.error_code));
     if (run.log_url) detail.append(evidenceLink(run.log_url, '실행 로그'));

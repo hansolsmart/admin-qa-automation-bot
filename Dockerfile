@@ -9,4 +9,4 @@ RUN pip install --no-cache-dir -r requirements.txt \
 COPY . .
 USER qa
 EXPOSE 8000
-CMD ["python", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--no-access-log"]
+CMD ["python", "-m", "app.bootstrap", "serve", "--host", "0.0.0.0"]
