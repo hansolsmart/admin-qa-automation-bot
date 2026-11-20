@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('./fonts/noto-sans-kr.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light;
   --ink: #122437;
@@ -6,7 +14,7 @@
   --canvas: #f2f6fa;
   --accent: #075d63;
   --bar: #102537;
-  font-family: Inter, 'Malgun Gothic', system-ui, sans-serif;
+  font-family: 'Noto Sans KR', 'Malgun Gothic', system-ui, sans-serif;
   background: var(--canvas);
   color: var(--ink);
 }

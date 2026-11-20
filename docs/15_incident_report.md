@@ -13,7 +13,7 @@
 같은 테스트 파일과 입력으로 결함 상태와 복구 상태를 각각 실행했다. 두 태그의 변경은 테스트 전용 `qa/fault_profile.txt`이며 같은 앱 코드에서 재현 경로를 고른다. 여섯 태그를 각각 `git archive`로 독립 임시 폴더에 풀어, 환경 변수로 결함 조건을 덮어쓰지 않은 상태에서도 3개 기대 실패와 3개 통과를 다시 확인했다.
 
 - 케이스별 `reports/step15/bug-0{1,2,3}/{before,after}/`에 pytest 로그, JUnit XML, JSON 판정, 스크린샷 기록.
-- 태그별 재실행 결과는 [tag_verification.json](../reports/step15/tag_verification.json). 스크린샷과 로그는 `reports/step15/tag-verify/`.
+- 로컬 태그 재실행 결과는 `reports/step15/tag_verification.json`. 스크린샷과 로그는 `reports/step15/tag-verify/`.
 - 전체 회귀는 `python -m pytest -q --tb=short`로 22개 통과. `reports/step15/regression/`에 로그와 JUnit XML 기록.
 
 같은 조건을 현재 브랜치에서 다시 실행하려면 PowerShell의 `QA_DEMO_FAULT`에 `network`, `special`, `duplicate` 중 하나를 지정하고 해당 테스트 파일을 실행한다. 복구는 같은 명령에 `fixed`를 지정한다. 아래는 BUG-01 실행 예시다.

@@ -6,11 +6,11 @@
 
 | 검증 | 결과 | 증거 |
 | --- | --- | --- |
-| 최종 회귀 | `python -m pytest -q --tb=short`로 22개 통과, 실패·건너뜀 0개. DB·API·Worker·운영 14개, 브라우저 8개 | [JUnit XML](../reports/step16/final/junit.xml), [로그](../reports/step16/final/pytest.log) |
-| 대시보드 통합 | Worker를 거쳐 6개 시나리오 `PASS`, 집계 6건, 새로고침 뒤 이력·로그·스크린샷 조회 성공 | [대시보드 화면](../reports/step16/final/dashboard/dashboard.png) |
+| 최종 회귀 | `python -m pytest -q --tb=short`로 22개 통과, 실패·건너뜀 0개. DB·API·Worker·운영 14개, 브라우저 8개 | 로컬 `reports/step16/final/{junit.xml,pytest.log}` |
+| 대시보드 통합 | Worker를 거쳐 6개 시나리오 `PASS`, 집계 6건, 새로고침 뒤 이력·로그·스크린샷 조회 성공 | 로컬 `reports/step16/final/dashboard/dashboard.png` |
 | 장애 재현·복구 | 기대 실패 3/3, 동일 테스트의 복구 통과 3/3, 분리한 소스에서 태그 6개 재실행 | [장애 보고서](15_incident_report.md) |
-| 네이티브 앱 및 복원 | CLI 계정 생성, 앱 기동, 헬스 200, 로그인 200, 등록 201. 동작 중 DB 백업, 별도 경로 복원, 데이터와 스키마 확인 | [실행 기록](../reports/step16/native-smoke/result.json) |
-| 정적 검사·의존성 | Ruff, `node --check app/static/app.js`, `pip check` 통과. Starlette TestClient에서 AnyIO deprecation 경고 1건 | [Ruff 로그](../reports/step16/final/ruff.log), [테스트 로그](../reports/step16/final/pytest.log) |
+| 네이티브 앱 및 복원 | CLI 계정 생성, 앱 기동, 헬스 200, 로그인 200, 등록 201. 동작 중 DB 백업, 별도 경로 복원, 데이터와 스키마 확인 | 로컬 `reports/step16/native-smoke/result.json` |
+| 정적 검사·의존성 | Ruff, `node --check app/static/app.js`, `pip check` 통과. Starlette TestClient에서 AnyIO deprecation 경고 1건 | 로컬 `reports/step16/final/{ruff.log,pytest.log}` |
 
 ## 로컬 성능 기준선
 
@@ -24,7 +24,7 @@
 | 대기·정상 QA 3종 실행 | 0초·6초, 3/3 PASS | < 5초·< 120초 |
 | Worker 최대 메모리 표본 | 본체 Working Set 3.88 MiB, 표본 10개 | 표본 기록. 브라우저·자식 프로세스 별도 |
 
-성능 검사 6개를 통과했다. 이 부하 조건에서 목표를 넘긴 항목은 없었다. 장기 부하 및 최적화 전후 비교는 미측정이다. [원시 측정값](../reports/step16/performance/benchmark.json)
+성능 검사 6개를 통과했다. 이 부하 조건에서 목표를 넘긴 항목은 없었다. 장기 부하 및 최적화 전후 비교는 미측정이다. 원시 측정값은 로컬 `reports/step16/performance/benchmark.json`에 있다.
 
 ## 완료 상태
 
@@ -38,4 +38,4 @@
 | GitHub Actions | 워크플로 준비. GitHub 원격 저장소가 미설정되어 미실행 |
 | 외부 배포 | 사용자 요청에 따라 범위 제외 |
 
-운영 절차는 [Runbook](16_runbook.md), 단계별 상세는 [검증 기록](verification_log.md)에 있다. 원시 로그·JUnit·스크린샷은 로컬 `reports/`에 보존했다.
+운영 절차는 [Runbook](16_runbook.md), 단계별 상세는 [검증 기록](verification_log.md)에 있다. 원시 로그·JUnit·스크린샷은 로컬 `reports/`에 보존했다. GitHub에서 볼 수 있는 증거는 [README의 실행 #3](../README.md#qa-대시보드-실행-3)에 있다.
