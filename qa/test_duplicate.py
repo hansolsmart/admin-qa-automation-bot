@@ -15,6 +15,7 @@ def test_rapid_click_and_concurrent_requests(page, app_server, request):
     sign_in(page, base)
     fill_item(page, "빠른 제출 버튼")
     button = page.get_by_role("button", name="항목 등록")
+    expect(button).to_be_enabled()
     button.evaluate("button => { for (let i = 0; i < 10; i += 1) button.click(); }")
     expect(page.get_by_role("cell", name="빠른 제출 버튼")).to_be_visible()
     assert len(read_items(path)) == 1

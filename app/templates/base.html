@@ -15,7 +15,7 @@
       <a href="/items" {% if page == 'items' %}aria-current="page"{% endif %}>데이터 관리</a>
       <a href="/qa" {% if page == 'qa' %}aria-current="page"{% endif %}>QA 대시보드</a>
     </nav>
-    <div class="account"><span>{{ username }}</span><button type="button" id="logout" class="quiet">로그아웃</button></div>
+    <div class="account"><span>{{ username }}</span><button type="button" id="logout" class="quiet" disabled>로그아웃</button></div>
   </header>
   {% endif %}
   <main>{% block content %}{% endblock %}</main>

@@ -59,6 +59,8 @@ def test_dashboard_runs_worker_and_displays_evidence(page, app_server):
 def test_mobile_keyboard_flow(page, app_server):
     base, _ = app_server
     page.set_viewport_size({"width": 390, "height": 840})
+    session_requests = []
+    page.route("**/api/auth/me", lambda route: session_requests.append(route))
     page.goto(base)
     page.keyboard.press("Tab")
     expect(page.get_by_label("사용자명")).to_be_focused()
@@ -66,9 +68,22 @@ def test_mobile_keyboard_flow(page, app_server):
     page.keyboard.press("Tab")
     expect(page.get_by_label("비밀번호")).to_be_focused()
     page.keyboard.type(PASSWORD)
-    page.keyboard.press("Enter")
+    with page.expect_request("**/api/auth/me"):
+        page.keyboard.press("Enter")
     expect(page.get_by_role("heading", name="데이터 관리")).to_be_visible()
-    expect(page.get_by_role("button", name="항목 등록")).to_be_visible()
-    page.get_by_role("link", name="QA 대시보드").click()
-    expect(page.get_by_role("button", name="QA 실행")).to_be_visible()
+    registration = page.get_by_role("button", name="항목 등록")
+    try:
+        expect(registration).to_be_disabled()
+    finally:
+        session_requests.pop().continue_()
+    expect(registration).to_be_enabled()
+
+    with page.expect_request("**/api/auth/me"):
+        page.get_by_role("link", name="QA 대시보드").click()
+    run = page.get_by_role("button", name="QA 실행")
+    try:
+        expect(run).to_be_disabled()
+    finally:
+        session_requests.pop().continue_()
+    expect(run).to_be_enabled()
     assert page.evaluate("document.documentElement.scrollWidth === window.innerWidth")

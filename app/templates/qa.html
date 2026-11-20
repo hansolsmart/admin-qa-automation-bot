@@ -11,13 +11,13 @@
 <div class="workspace qa-layout">
   <section class="panel">
     <h2>새 QA 실행</h2>
-    <form id="run-form" aria-describedby="status">
+    <form id="run-form" aria-describedby="status" method="post">
       <fieldset><legend>시나리오 선택</legend>
         {% for id, scenario in scenarios.items() %}
         <label class="scenario"><input type="checkbox" name="scenario" value="{{ id }}" {% if id.startswith('TC-N') %}checked{% endif %}><span>{{ scenario[0] }}<small>{{ id }}</small></span></label>
         {% endfor %}
       </fieldset>
-      <button type="submit">QA 실행</button>
+      <button type="submit" disabled>QA 실행</button>
     </form>
     <p id="status" role="status" aria-live="polite"></p>
   </section>

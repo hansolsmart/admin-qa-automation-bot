@@ -51,6 +51,7 @@ function busyForm(form, handler) {
       submit.disabled = false;
     }
   });
+  submit.disabled = false;
 }
 
 function setUpLogin() {
@@ -285,6 +286,7 @@ async function start() {
       logout.disabled = false;
     }
   });
+  logout.disabled = false;
   await (view === 'items' ? setUpItems() : setUpDashboard());
 }
 
